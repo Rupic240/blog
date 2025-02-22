@@ -6,6 +6,9 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 router.get('/posts', async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    const skip = (Number(page) - 1) * Number(limit);
+
     try {
         const data = await prisma.post.findMany({
             include: {
@@ -14,7 +17,8 @@ router.get('/posts', async (req, res) => {
                 postLikes: true,
             },
             orderBy: { id: "desc" },
-            take: 10
+            skip: skip,
+            take: Number(limit)
         });
 
         res.json(data);
@@ -23,6 +27,7 @@ router.get('/posts', async (req, res) => {
         res.status(500).json({ error: e });
     }
 });
+
 router.get('/posts/page/:page', async (req, res) => {
     const { page } = req.params;
     const pageSize = 10;

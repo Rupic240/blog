@@ -26,15 +26,14 @@ export async function fetchVerify() {
 
 
 // getPosts
-
-export async function fetchPosts() {
+export async function fetchPosts(page: number = 1, limit: number = 10) {
     const token = getToken();
-    const res = await fetch(`${api}/content/posts`, {
+    const res = await fetch(`${api}/content/posts?page=${page}&limit=${limit}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
-    })
+    });
 
     return res.json();
 }

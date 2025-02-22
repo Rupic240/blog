@@ -28,7 +28,7 @@
     npm install
     ```
 3. Set up environment variables:
-    - Create a `.env` file in the root directory
+    - Create a `.env` file in the blog-api folder
     - Add the following variables:
         ```
         DATABASE_URL=your_database_url
